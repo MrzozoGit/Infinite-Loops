@@ -1,0 +1,64 @@
+html {
+    width: 100vw;
+    height: 100vh;
+    font-family: ms pgothic;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    cursor: url('https://alexsounalet.com/assets/img/arrow.cur'), default;
+    user-select: none;
+}
+
+main {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 63%);
+    overflow: hidden;
+}
+
+p {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+
+.clickable:hover {
+  cursor: pointer;
+}
+
+.note {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 5px;
+    font-size: .8rem;
+}
+
+.save {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 5px;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+.legende {
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 100;
+}
