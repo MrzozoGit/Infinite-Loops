@@ -17,9 +17,27 @@ class Swarm {
   addBoids(nb) {
     for(let i=0; i<nb; i++) {
       let boid = new Boid(random(0,canvasWidth), random(0,canvasHeight));
-      this.boids.push(boid);
+      this.addBoid(boid);
     }
   }
+
+  popBoid() {
+    this.boids.pop();
+  }
+
+  // Create a life cycle for the swarm
+  // Begin with no boids, create them, then delete them and end with no boids
+  // createLifeCycle(max) {
+  //   var count = 0;
+
+  //   for(count; count<max; count++) {
+  //     this.addBoid(random(0,canvasWidth), random(0,canvasHeight));
+  //   }
+
+  //   for(count; count>0; count--) {
+  //     this.popBoid();
+  //   }
+  // }
 }
 
 // Boid class
@@ -31,8 +49,8 @@ class Boid {
     this.r = 3.0;
     this.textContent = words[int(random(0, words.length))];
     this.textSize = wordsSize;
-    // this.textSize = random(0, wordsSize); // random size
-    this.textFont = wordsFonts[0];
+    this.textSize = random(10, 20); // random size
+    // this.textFont = wordsFonts[0];
     this.textFont = wordsFonts[int(random(0,wordsFonts.length))];
   }
 
@@ -48,12 +66,15 @@ class Boid {
     fill('#7DA4D3');
     stroke('#6A7B9E');
     push();
+    drawingContext.shadowBlur = wordsShadowBlur;
+    drawingContext.shadowColor = color(207, 7, 99, wordsShadowVisibility);
       translate(this.pos.x, this.pos.y);
-      // rotate(theta); // TO HAVE WORDS FACE THE DIRECTION THEYRE GOING TO -> very ressource demanding
+      rotate(theta); // TO HAVE WORDS FACE THE DIRECTION THEYRE GOING TO -> ressource demanding
       strokeWeight(wordsBorderWidth);
       fill(255);
       // fill(random(0, 100), random(0,150), random(100,255)); // stuttering colors
-      textSize(this.textSize);
+      textSize(wordsSize);
+      // textSize(this.textSize);
       textFont(this.textFont);
       var myText = text(this.textContent, 0, 0); // mots aléatoires
     pop();
