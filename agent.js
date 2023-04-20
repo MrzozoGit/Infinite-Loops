@@ -50,7 +50,6 @@ class Boid {
     this.textContent = words[int(random(0, words.length))];
     this.textSize = wordsSize;
     this.textSize = random(10, 20); // random size
-    // this.textFont = wordsFonts[0];
     this.textFont = wordsFonts[int(random(0, wordsFonts.length))];
     this.particleSystem = new ParticleSystem(createVector(this.pos.xpos, this.pos.ypos));
   }
@@ -72,7 +71,7 @@ class Boid {
       this.particleSystem.addParticle(); // Add a particule to the table of particles
       this.particleSystem.run(); // Evolve each particule of the table of particules
       // rotate(theta); // TO HAVE WORDS FACE THE DIRECTION THEYRE GOING TO -> ressource demanding
-      
+
       // First word
       drawingContext.shadowBlur = wordsShadowBlur;
       drawingContext.shadowColor = color(125, 164, 211, wordsShadowVisibility);  
@@ -80,7 +79,6 @@ class Boid {
       fill(color(boidsColors.current.r, boidsColors.current.g, boidsColors.current.b, wordsShadowVisibility));
       // fill(random(0, 100), random(0,150), random(100,255)); // stuttering colors
       textSize(wordsSize);
-      // textSize(this.textSize);
       textFont(this.textFont);
       var myText = text(this.textContent, 0, 0); 
     pop();
@@ -213,7 +211,6 @@ class Particle {
 
   // Method to display
   display() {
-    // stroke(200, this.lifespan);
     stroke(200, 0);
     strokeWeight(1);
     fill(127, this.lifespan);
