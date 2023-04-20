@@ -109,10 +109,10 @@ class Boid {
 
   screenBorders() {
     var padding = 20;
-    if (this.pos.x > width + padding) this.pos.x = -padding;
-    if (this.pos.y > height + padding) this.pos.y = -padding;
-    if (this.pos.x < -padding) this.pos.x = width + padding;
-    if (this.pos.y < -padding) this.pos.y = height + padding;
+    if (this.pos.x > width + padding) this.pos.x = -padding*2;
+    if (this.pos.y > height + padding) this.pos.y = -padding*2;
+    if (this.pos.x < -padding*2) this.pos.x = width + padding;
+    if (this.pos.y < -padding*2) this.pos.y = height + padding;
   }
 
   seek(target) {

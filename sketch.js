@@ -7,8 +7,8 @@ let p5canvas = document.querySelector(".p5canvas");
 let saveButton = document.querySelector(".save");
 
 // Canvas variables
-var canvasWidth = 720;
-var canvasHeight = 576;
+var canvasWidth = 640;
+var canvasHeight = 480;
 var fps = 30;
 const Y_AXIS = 1;
 const X_AXIS = 2;
@@ -99,7 +99,7 @@ var wordsShadowVisibility = 255;
 var wordsFonts = ['Helvetica'];
 
 // Scenario variable
-var totalTime = 30;
+var totalTime = 20;
 
 
 ////////////////
@@ -136,7 +136,7 @@ function setGradient(x, y, w, h, c1, c2, axis) {
 saveButton.addEventListener('click', saveButtonHandler);
 
 function saveButtonHandler() {
-  saveGif('swarmGif', 10);
+  saveGif('swarmGif', 20);
 }
 function playScenario() {
   // time managment
@@ -159,8 +159,7 @@ function playScenario() {
     bgColorGradient.current[2].r -= (bgColorGradient.negative[2].r-bgColorGradient.positive[2].r)/(fps*10);
     bgColorGradient.current[2].g -= (bgColorGradient.negative[2].g-bgColorGradient.positive[2].g)/(fps*10);
     bgColorGradient.current[2].b -= (bgColorGradient.negative[2].b-bgColorGradient.positive[2].b)/(fps*10);
-    
-  } else if (totalTime/3 < scenarTime && scenarTime < (totalTime/3)*2) {
+  } else if (totalTime/3+1 < scenarTime && scenarTime < (totalTime/3)*2+1) {
     avoidMultiplier -= 0.01;
     cohesionMultiplier += 0.01;
     alignMultiplier +=0.01;
