@@ -12,10 +12,67 @@ var canvasHeight = 576;
 var fps = 30;
 const Y_AXIS = 1;
 const X_AXIS = 2;
-var bg_r = 0;
-var bg_g = 0;
-var bg_b = 0;
 
+var bgColor = {
+  r: 0,
+  g: 0,
+  b: 0
+}
+var bgColorGradient = {
+  positive: {
+    1: {
+      r: 0,
+      g: 0,
+      b: 0
+    },
+    2: {
+      r: 46,
+      g: 137,
+      b: 255
+    }
+  },
+  negative: {
+    1: {
+      r: 0,
+      g: 0,
+      b: 0
+    },
+    2: {
+      r: 199,
+      g: 128,
+      b: 45
+    }
+  },
+  current: {
+    1: {
+      r: 0,
+      g: 0,
+      b: 0
+    },
+    2: {
+      r: 199,
+      g: 128,
+      b: 45
+    }
+  }
+}
+var boidsColors = {
+  positive: {
+    r: 46,
+    g: 137,
+    b: 255
+  },
+  negative: {
+    r: 242,
+    g: 63,
+    b: 44
+  },
+  current: {
+    r: 242,
+    g: 63,
+    b: 44
+  }
+}
 
 // Swarm variables
 var swarm;
@@ -40,6 +97,9 @@ var wordsBorderWidth = 0;
 var wordsShadowBlur = 25;
 var wordsShadowVisibility = 255;
 var wordsFonts = ['Helvetica'];
+
+// Scenario variable
+var totalTime = 30;
 
 
 ////////////////
@@ -81,28 +141,41 @@ function saveButtonHandler() {
 function playScenario() {
   // time managment
   let currentTime = (new Date().getTime() - startTime.getTime()) / 1000;
-  let scenarTime = currentTime%30;
+  let scenarTime = currentTime%totalTime;
 
-  if(0 < scenarTime && scenarTime < 10) {
+  if(0 < scenarTime && scenarTime < totalTime/3) {
     avoidMultiplier += 0.01;
     cohesionMultiplier -= 0.01;
     alignMultiplier -=0.01;
     wordsSize -= 0.03;
-    wordsShadowVisibility -= 0.5;
+    wordsShadowVisibility -= 0.9;
     wordsShadowBlur -= 0.03;
-    bg_r += 0.2;
-    bg_g += 0.2;
-    bg_b += 0.2;
-  } else if (10 < scenarTime && scenarTime < 20) {
+    bgColor.r += 0.2;
+    bgColor.g += 0.2;
+    bgColor.b += 0.2;
+    boidsColors.current.r -= (boidsColors.negative.r-boidsColors.positive.r)/(fps*10);
+    boidsColors.current.g -= (boidsColors.negative.g-boidsColors.positive.g)/(fps*10);
+    boidsColors.current.b -= (boidsColors.negative.b-boidsColors.positive.b)/(fps*10);
+    bgColorGradient.current[2].r -= (bgColorGradient.negative[2].r-bgColorGradient.positive[2].r)/(fps*10);
+    bgColorGradient.current[2].g -= (bgColorGradient.negative[2].g-bgColorGradient.positive[2].g)/(fps*10);
+    bgColorGradient.current[2].b -= (bgColorGradient.negative[2].b-bgColorGradient.positive[2].b)/(fps*10);
+    
+  } else if (totalTime/3 < scenarTime && scenarTime < (totalTime/3)*2) {
     avoidMultiplier -= 0.01;
     cohesionMultiplier += 0.01;
     alignMultiplier +=0.01;
     wordsSize += 0.03;
-    wordsShadowVisibility += 0.5;
+    wordsShadowVisibility += 0.9;
     wordsShadowBlur += 0.03;
-    bg_r -= 0.2;
-    bg_g -= 0.2;
-    bg_b -= 0.2;
+    bgColor.r -= 0.2;
+    bgColor.g -= 0.2;
+    bgColor.b -= 0.2;
+    boidsColors.current.r += (boidsColors.negative.r-boidsColors.positive.r)/(fps*10);
+    boidsColors.current.g += (boidsColors.negative.g-boidsColors.positive.g)/(fps*10);
+    boidsColors.current.b += (boidsColors.negative.b-boidsColors.positive.b)/(fps*10);
+    bgColorGradient.current[2].r += (bgColorGradient.negative[2].r-bgColorGradient.positive[2].r)/(fps*10);
+    bgColorGradient.current[2].g += (bgColorGradient.negative[2].g-bgColorGradient.positive[2].g)/(fps*10);
+    bgColorGradient.current[2].b += (bgColorGradient.negative[2].b-bgColorGradient.positive[2].b)/(fps*10);
   }
 }
 
@@ -133,8 +206,8 @@ let counter = 0;
 let startTime = new Date();
 
 function draw() { 
-  background(color(bg_r, bg_g, bg_b));
-  // setGradient(0, 0, canvasWidth, canvasHeight*2, color(bg_r, bg_g, bg_b), color(160, 255, 34), Y_AXIS);
+  // background(color(bgColor.r, bgColor.g, bgColor.b));
+  setGradient(0, 0, canvasWidth, canvasHeight*2, color(bgColorGradient.current[1].r, bgColorGradient.current[1].g, bgColorGradient.current[1].b), color(bgColorGradient.current[2].r, bgColorGradient.current[2].g, bgColorGradient.current[2].b), Y_AXIS);
   blendMode(OVERLAY);
   image(backgroundNoise, 0, 0);
   blendMode(BLEND);

@@ -77,7 +77,7 @@ class Boid {
       drawingContext.shadowBlur = wordsShadowBlur;
       drawingContext.shadowColor = color(125, 164, 211, wordsShadowVisibility);  
       strokeWeight(wordsBorderWidth);
-      fill(color(125, 164, 211, wordsShadowVisibility));
+      fill(color(boidsColors.current.r, boidsColors.current.g, boidsColors.current.b, wordsShadowVisibility));
       // fill(random(0, 100), random(0,150), random(100,255)); // stuttering colors
       textSize(wordsSize);
       // textSize(this.textSize);
